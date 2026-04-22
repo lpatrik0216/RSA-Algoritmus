@@ -17,4 +17,7 @@ void main() {
     BigInteger sk = temp.get(0);
     BigInteger pk = temp.get(1);
     IO.println(sk.multiply(pk).mod(fiN));
+
+    CRT crt = new CRT();
+    IO.println(crt.chineseRest(BigInteger.valueOf(43),BigInteger.valueOf(53),BigInteger.valueOf(25),BigInteger.valueOf(41)));
 }
