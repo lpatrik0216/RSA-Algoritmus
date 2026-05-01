@@ -5,6 +5,7 @@ void main() {
     KeyGenerator kGenerator = new KeyGenerator();
     PrimeGenerator generator = new PrimeGenerator();
     PrimeCheck pCheck = new PrimeCheck();
+    Encryption enc = new Encryption();
     //Generating two random primes for bases. Failsafe.
     BigInteger p = generator.primeGenerator();
     BigInteger q = generator.primeGenerator();
@@ -16,8 +17,21 @@ void main() {
     ArrayList<BigInteger> temp = kGenerator.keyGenerator(fiN);
     BigInteger sk = temp.get(0);
     BigInteger pk = temp.get(1);
-    IO.println(sk.multiply(pk).mod(fiN));
 
-    CRT crt = new CRT();
-    IO.println(crt.chineseRest(BigInteger.valueOf(43),BigInteger.valueOf(53),BigInteger.valueOf(25),BigInteger.valueOf(41)));
+
+    //FOR TESTING PURPOSES
+    SecureRandom random = new SecureRandom();
+    BigInteger msg = new BigInteger(512, random);
+
+    BigInteger encryptedMessage = enc.encrypt(msg,p.multiply(q),pk);
+    IO.println(encryptedMessage);
+    IO.println(msg.equals(enc.decrypt(encryptedMessage,p,q,sk)));
+
+    IO.println("Signature");
+    BigInteger msg2 = new BigInteger(512, random);
+    Sign sgn = new Sign();
+    BigInteger signedMessage = sgn.sign(msg2,p.multiply(q),sk);
+    IO.println(signedMessage);
+    IO.println(msg2.equals(sgn.check(signedMessage,p.multiply(q),pk)));
+
 }

@@ -16,7 +16,7 @@ public class QuickPower {
         }
         BigInteger result=BigInteger.ONE;
         for(int i = 0;i<binaryList.size();i++){
-            if(binaryList.get(i)==1) result=result.multiply(numbers.get(i));
+            if(binaryList.get(i)==1) result=result.multiply(numbers.get(i)).mod(mod);
         }
         return result;
     }
